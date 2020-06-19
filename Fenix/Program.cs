@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Fenix.nsCliente;
 using Fenix.nsContext;
 using Fenix.nsExtensions;
+using Fenix.WebApi.nsContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -48,7 +49,7 @@ namespace Fenix
 
         public static async Task BuscarClientes(HttpContext httpContext)
         {
-            using (var context = new Context())
+            using (var context = new TestContext())
             {
                 await httpContext.Response.WriteJsonAsync(await context.Clientes.ToListAsync());
             }
@@ -62,7 +63,7 @@ namespace Fenix
                 return;
             }
 
-            using (var context = new Context())
+            using (var context = new TestContext())
             {
                 var cliente = await context.Clientes.FindAsync(id);
 
@@ -106,7 +107,7 @@ namespace Fenix
                 return;
             }
 
-            using (var context = new Context())
+            using (var context = new TestContext())
             {
                 var cliente = await context.Clientes.FindAsync(id);
 
@@ -127,7 +128,7 @@ namespace Fenix
 
         private static async Task AddCliente(Cliente cliente)
         {
-            using (var context = new Context())
+            using (var context = new TestContext())
             {
                 await context.Clientes.AddAsync(cliente);
                 await context.SaveChangesAsync();
@@ -136,7 +137,7 @@ namespace Fenix
 
         private static async Task ApagarClientes(HttpContext httpContext)
         {
-            using (var context = new Context())
+            using (var context = new TestContext())
             {
                 var clientes = context.Clientes;
 
@@ -153,7 +154,7 @@ namespace Fenix
                 return;
             }
 
-            using (var context = new Context())
+            using (var context = new TestContext())
             {
                 var cliente = await context.Clientes.FindAsync(id);
 
